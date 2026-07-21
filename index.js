@@ -24,6 +24,20 @@ app.get('/delete/:filename', (req, res) => {
         res.redirect('/');
     });
 });
+app.get('/edit/:filename', (req, res) => {
+    fs.readFile(`./files/${req.params.filename}`, 'utf-8', (err, filedata) => {
+        res.render('edit', { filename: req.params.filename, filedata: filedata });
+    });
+});
+app.post('/edit/:filename', (req, res) => {
+    const oldPath = `./files/${req.params.filename}`;
+    const newPath = `./files/${req.body.title.split(' ').join('')}.txt`;
+    fs.rename(oldPath, newPath, () => {
+        fs.writeFile(newPath, req.body.description, () => {
+            res.redirect('/');
+        });
+    });
+});
 app.post('/create', (req, res) => {
     fs.writeFile(`./files/${req.body.title.split(' ').join('')}.txt`, req.body.description, (err) => { res.redirect('/') });
 });
