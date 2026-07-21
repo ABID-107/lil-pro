@@ -12,23 +12,24 @@
 
 <body class="bg-gray-900 text-white p-10">
     <div class="form flex flex-col items-center gap-4 mb-10">
-        <form action="/" class="flex flex-col gap-4">
-            <input class="rounded-lg bg-gray-700 placeholder:text-gray-500 placeholder:pl-3" type="text" placeholder="Enter a task...">
+        <form action="/create" method="post" class="flex flex-col gap-4">
+            <input class="rounded-lg bg-gray-700 placeholder:text-gray-500 placeholder:pl-3" type="text" placeholder="Enter a task..." name="title"></input>
             <textarea class="rounded-lg bg-gray-700 placeholder:text-gray-500 placeholder:pl-3 resize-none"
-                placeholder="Enter a description..."></textarea>
+                placeholder="Enter a description..." name="description"></textarea>
             <button type="submit" class="btn bg-blue-500 w-auto rounded-lg">Add Task</button>
         </form>
     </div>
-    <div class="tasks flex flex-col items-center gap-4">
+    <div class="tasks flex flex-row justify-center gap-4">
         <%if(files.length>0){%>
             <% files.forEach(val=>{ %>
                 <div class="task w-80 bg-gray-800 p-4 rounded-lg mb-4">
-                    <h1 class="text-xl font-bold">tasks
+                    <h1 class="text-xl font-bold">
+                        <%= val%>
                     </h1>
                     <div class="flex justify-between ">
-                        <a href="" class="text-blue-500 hover:underline">Read More</a>
+                        <a href="/files/<%= val %>" class="text-blue-500 hover:underline">Read More</a>
                         <a href="" class="text-zinc-500 hover:underline">Edit</a>
-                        <a href="" class="text-red-500 hover:underline">Delete</a>
+                        <a href="/delete/<%= val %>" class="text-red-500 hover:underline">Delete</a>
                     </div>
                 </div>
                 <% }) %>
